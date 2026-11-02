@@ -1,14 +1,13 @@
 services:
   web:
     build: .
+    cpus: 0.5
+    mem_limit: 512m
     environment:
       DEBUG: "0"
       SECRET_KEY: "dasj2jdkalsdj233j4lkMio"
       ADMIN_PASSWORD: "17112002"
     volumes:
-      - deus-data:/data
+      - ./data:/data
     expose:
       - "8000"
-
-volumes:
-  deus-data:
