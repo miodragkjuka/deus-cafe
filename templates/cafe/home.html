@@ -1,0 +1,88 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}Почетна{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-img"><img src="{% static 'img/terrace.jpg' %}" alt="Стаклената градина на кафулето Деус во пролет"></div>
+  <div class="hero-copy">
+    <p class="eyebrow">Ленинова 22, Скопје</p>
+    <h1>Вашето место за кафе и добар разговор</h1>
+    <p>Градина под стаклен покрив, свежо еспресо и маси што секогаш имаат место за уште еден пријател.</p>
+    <div class="actions">
+      <a class="btn light lg" href="{% url 'reservation' %}">Резервирај маса</a>
+      <a class="btn outline-light lg" href="{% url 'menu' %}">Погледни го менито</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top:64px">
+  <div class="wrap">
+    <div class="section-head"><h2>Од нашето мени</h2><a href="{% url 'menu' %}">Цело мени →</a></div>
+    <div class="cats">
+      {% for c in categories %}
+      <a class="cat reveal" href="{% url 'menu' %}#kat-{{ c.pk }}">
+        <div class="disc">{% if c.image %}<img src="{{ c.image.url }}" alt="" loading="lazy">{% endif %}</div>
+        {{ c.name }}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="tile reveal">
+  <div class="tile-img"><img src="{% static 'img/interior.jpg' %}" alt="Топла внатрешност со дрвен под и стари слики" loading="lazy"></div>
+  <div class="tile-copy">
+    <p class="eyebrow">За нас</p>
+    <h2>Топло место во центарот на градот</h2>
+    <p>Во зима – украсено и пријатно, во пролет и лето – зелена градина. Дојдете сами, со пријатели или со колеги.</p>
+    <a class="btn outline" href="{% url 'about' %}">Запознајте не</a>
+  </div>
+</section>
+
+<section class="tile reverse dark reveal">
+  <div class="tile-img"><img src="{% static 'img/cappuccino.jpg' %}" alt="Капучино со цимет и чоколаден мус" loading="lazy"></div>
+  <div class="tile-copy">
+    <p class="eyebrow" style="color:var(--gold)">Резервации</p>
+    <h2>Резервирајте маса однапред</h2>
+    <p>Навечер масите брзо се полнат. Оставете ни датум, време и број на гости, а ние ќе ве контактираме за потврда.</p>
+    <a class="btn light" href="{% url 'reservation' %}">Резервирај</a>
+  </div>
+</section>
+
+{% if posts %}
+<section class="block" style="padding-top:64px">
+  <div class="wrap">
+    <div class="section-head"><h2>Новости</h2><a href="{% url 'news' %}">Сите новости →</a></div>
+    <div class="cards">
+      {% for p in posts %}
+      <a class="card reveal" href="{% url 'news_detail' p.pk %}">
+        <div class="card-img">{% if p.image %}<img src="{{ p.image.url }}" alt="" loading="lazy">{% else %}<img src="{% static 'img/terrace.jpg' %}" alt="" loading="lazy">{% endif %}</div>
+        <p class="muted" style="font-size:.8125rem;margin-bottom:4px">{{ p.created|date:"d.m.Y" }}</p>
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.summary }}</p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if gallery %}
+<section class="block">
+  <div class="wrap">
+    <div class="section-head"><h2>Галерија</h2><a href="{% url 'gallery' %}">Сите слики →</a></div>
+    <div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px">
+      {% for img in gallery %}<a class="card-img reveal" href="{% url 'gallery' %}" style="margin:0;aspect-ratio:1"><img src="{{ img.image.url }}" alt="{{ img.title }}" loading="lazy"></a>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="info-band">
+  <div class="wrap">
+    <div><h3>Адреса</h3><p>Ленинова 22<br>Скопје 1000</p></div>
+    <div><h3>Работно време</h3><p>Секој ден<br>до 00:00</p></div>
+    <div><h3>Телефон</h3><p><a href="tel:+38923135415">02 313 5415</a></p></div>
+    <div><h3>Контакт</h3><p><a href="{% url 'contact' %}">Пишете ни →</a></p></div>
+  </div>
+</section>
+{% endblock %}

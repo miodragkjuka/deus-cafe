@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Галерија{% endblock %}
+{% block content %}
+<div class="page-head"><div class="wrap">
+  <p class="breadcrumb"><a href="{% url 'home' %}">Почетна</a> / Галерија</p>
+  <h1>Галерија</h1>
+  <p>Малку од нашата атмосфера.</p>
+</div></div>
+<div class="wrap gallery">
+  {% for i in images %}
+  <button type="button" class="reveal" data-full="{{ i.image.url }}" data-title="{{ i.title }}" aria-label="Зголеми: {{ i.title }}">
+    <img src="{{ i.image.url }}" alt="{{ i.title }}" loading="lazy">
+  </button>
+  {% empty %}<p>Сликите наскоро ќе бидат додадени.</p>{% endfor %}
+</div>
+<dialog id="lightbox" class="lightbox" aria-label="Преглед на слика">
+  <button class="close" aria-label="Затвори">×</button>
+  <img src="" alt=""><p></p>
+</dialog>
+{% endblock %}

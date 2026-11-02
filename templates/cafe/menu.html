@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Мени{% endblock %}
+{% block content %}
+<div class="page-head"><div class="wrap">
+  <p class="breadcrumb"><a href="{% url 'home' %}">Почетна</a> / Мени</p>
+  <h1>Мени</h1>
+  <p>Кафе, пијалоци и лесна храна. Цените се во денари.</p>
+</div></div>
+<div class="wrap menu-layout">
+  <aside class="menu-nav" aria-label="Категории">
+    <h2>Категории</h2>
+    <div class="list">{% for c in categories %}<a href="#kat-{{ c.pk }}">{{ c.name }}</a>{% endfor %}</div>
+  </aside>
+  <div>
+    {% for c in categories %}
+    <section class="menu-cat reveal" id="kat-{{ c.pk }}">
+      <div class="menu-cat-head">
+        {% if c.image %}<img src="{{ c.image.url }}" alt="" loading="lazy">{% endif %}
+        <h2>{{ c.name }}</h2>
+      </div>
+      <div class="menu-items">
+        {% for i in c.items.all %}
+        <div class="menu-item">
+          <div><strong>{{ i.name }}</strong>{% if i.description %}<span class="d">{{ i.description }}</span>{% endif %}</div>
+          <span class="price">{{ i.price }} ден.</span>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    {% empty %}<p>Менито наскоро ќе биде достапно.</p>{% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+services:
+  web:
+    build: .
+    environment:
+      DEBUG: "0"
+      SECRET_KEY: "change-me-to-a-long-random-string"
+      ADMIN_PASSWORD: "change-me-admin-password"
+    volumes:
+      - deus-data:/data
+    expose:
+      - "8000"
+
+volumes:
+  deus-data:

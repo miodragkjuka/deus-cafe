@@ -1,0 +1,35 @@
+{% extends 'base.html' %}{% load static %}
+{% block title %}За нас{% endblock %}
+{% block content %}
+<div class="page-head"><div class="wrap">
+  <p class="breadcrumb"><a href="{% url 'home' %}">Почетна</a> / За нас</p>
+  <h1>За нас</h1>
+  <p>Приказната на Деус.</p>
+</div></div>
+
+<section class="tile reveal" style="margin-top:48px">
+  <div class="tile-img"><img src="{% static 'img/terrace.jpg' %}" alt="Тераса на кафулето Деус" loading="lazy"></div>
+  <div class="tile-copy">
+    <p class="eyebrow">Кафуле во центарот на Скопје</p>
+    <h2>Место каде секој е добредојден</h2>
+    <p>Деус е кафуле на улицата Ленинова, познато по градината, добро кафе и пријателска атмосфера. Со години е место каде се среќаваат пријатели, колеги и семејства.</p>
+    <p>Нашата цел е едноставна: секој гостин да се чувствува како дома – во зима меѓу топли украси, а во пролет и лето во зелена градина.</p>
+  </div>
+</section>
+
+<section class="block" style="padding-top:64px">
+  <div class="wrap">
+    <div class="section-head"><h2>Нашиот тим</h2></div>
+    <div class="team">
+      {% for m in team %}
+      <div class="person reveal">
+        <div class="avatar">{% if m.photo %}<img src="{{ m.photo.url }}" alt="{{ m.name }}" loading="lazy">{% else %}{{ m.name|first }}{% endif %}</div>
+        <h3>{{ m.name }}</h3>
+        <p class="eyebrow" style="margin:2px 0 8px">{{ m.role }}</p>
+        <p class="muted">{{ m.bio }}</p>
+      </div>
+      {% empty %}<p>Информациите за тимот наскоро ќе бидат додадени.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

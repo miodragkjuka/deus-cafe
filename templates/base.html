@@ -1,0 +1,104 @@
+{% load static %}{% with current=request.resolver_match.url_name %}<!doctype html>
+<html lang="mk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Деус{% endblock %} – кафуле во Скопје</title>
+  <meta name="description" content="{% block description %}Деус – кафуле со градина на улица Ленинова 22 во Скопје. Кафе, пијалоци и пријатна атмосфера.{% endblock %}">
+  <meta name="theme-color" content="#00754A">
+  <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <a class="skip" href="#main">Прескокни до содржината</a>
+
+  <header class="site-header" id="header">
+    <div class="wrap bar">
+      <a class="logo" href="{% url 'home' %}" aria-label="Деус – почетна">
+        <span class="logo-mark" aria-hidden="true">Д</span>
+        <span>Деус</span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Главна навигација">
+        <a class="link" href="{% url 'menu' %}" {% if current == 'menu' %}aria-current="page"{% endif %}>Мени</a>
+        <a class="link" href="{% url 'about' %}" {% if current == 'about' %}aria-current="page"{% endif %}>За нас</a>
+        <a class="link" href="{% url 'gallery' %}" {% if current == 'gallery' %}aria-current="page"{% endif %}>Галерија</a>
+        <a class="link" href="{% url 'news' %}" {% if current == 'news' or current == 'news_detail' %}aria-current="page"{% endif %}>Новости</a>
+        <a class="link" href="{% url 'contact' %}" {% if current == 'contact' %}aria-current="page"{% endif %}>Контакт</a>
+        <div class="mobile-cta">
+          <a class="btn lg" href="{% url 'reservation' %}">Резервирај маса</a>
+          <a class="btn outline lg" href="tel:+38923135415">Повикај: 02 313 5415</a>
+        </div>
+      </nav>
+      <div class="header-cta">
+        <a class="loc" href="{% url 'contact' %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          Најди нè
+        </a>
+        <a class="btn" href="{% url 'reservation' %}">Резервирај</a>
+      </div>
+      <button class="burger" aria-label="Мени" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  {% if messages %}
+  <div class="wrap">
+    {% for m in messages %}<p class="flash" role="status">{{ m }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  <main id="main">{% block content %}{% endblock %}</main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-top">
+      <div class="footer-brand">
+        <a class="logo" href="{% url 'home' %}"><span class="logo-mark" aria-hidden="true">Д</span><span>Деус</span></a>
+        <p>Кафуле со градина во центарот на Скопје. Добро кафе, добри луѓе.</p>
+      </div>
+      <div>
+        <h3>Истражи</h3>
+        <ul>
+          <li><a href="{% url 'menu' %}">Мени</a></li>
+          <li><a href="{% url 'gallery' %}">Галерија</a></li>
+          <li><a href="{% url 'news' %}">Новости</a></li>
+          <li><a href="{% url 'about' %}">За нас</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Посета</h3>
+        <ul>
+          <li>Ленинова 22, Скопје 1000</li>
+          <li><a href="tel:+38923135415">02 313 5415</a></li>
+          <li>Секој ден до 00:00</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Услуги</h3>
+        <ul>
+          <li><a href="{% url 'reservation' %}">Резервација на маса</a></li>
+          <li><a href="{% url 'contact' %}">Контакт</a></li>
+          <li><a href="{% url 'privacy' %}">Приватност и колачиња</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>© {% now "Y" %} Деус. Проект за предметот Деловна пракса.</span>
+      <a href="{% url 'privacy' %}">Приватност и колачиња</a>
+    </div>
+  </footer>
+
+  {% if current != 'reservation' %}
+  <div class="float-cta"><a class="btn lg" href="{% url 'reservation' %}">Резервирај маса</a></div>
+  {% endif %}
+
+  <div id="cookie" class="cookie" hidden role="dialog" aria-label="Колачиња">
+    <p>Користиме само неопходни колачиња за правилно функционирање на страницата. <a href="{% url 'privacy' %}">Повеќе</a></p>
+    <div class="row"><button class="btn light" id="cookie-ok">Прифати</button></div>
+  </div>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
+{% endwith %}

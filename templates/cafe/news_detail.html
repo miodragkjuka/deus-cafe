@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<div class="page-head"><div class="narrow">
+  <p class="breadcrumb"><a href="{% url 'home' %}">Почетна</a> / <a href="{% url 'news' %}">Новости</a></p>
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.created|date:"d.m.Y" }}</p>
+</div></div>
+<article class="narrow article">
+  {% if post.image %}<img src="{{ post.image.url }}" alt="{{ post.title }}">{% endif %}
+  {{ post.body|linebreaks }}
+  <p><a class="btn outline" href="{% url 'news' %}">← Назад кон новостите</a></p>
+</article>
+{% endblock %}
