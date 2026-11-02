@@ -3,8 +3,8 @@ services:
     build: .
     environment:
       DEBUG: "0"
-      SECRET_KEY: "change-me-to-a-long-random-string"
-      ADMIN_PASSWORD: "change-me-admin-password"
+      SECRET_KEY: "dasj2jdkalsdj233j4lkMio"
+      ADMIN_PASSWORD: "17112002"
     volumes:
       - deus-data:/data
     expose:
